@@ -17,6 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
         ]);
+        $middleware->alias([
+            'auth.check' => \App\Http\Middleware\AuthCheck::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
