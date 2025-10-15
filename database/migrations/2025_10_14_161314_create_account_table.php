@@ -8,14 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('account', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('username', 255);
-            $table->string('password', 255);
-            $table->date('created_at')->useCurrent();
-            $table->text('office');
-            $table->integer('employee')->unsigned()->nullable(); // jika nanti perlu FK opsional
-        });
+        if (!Schema::hasTable('account')) {
+            Schema::create('account', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('username', 255);
+                $table->string('password', 255);
+                $table->date('created_at')->useCurrent();
+                $table->text('office');
+                $table->integer('employee')->unsigned()->nullable(); // jika nanti perlu FK opsional
+            });
+        }
     }
 
     public function down(): void

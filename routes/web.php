@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\SurveyController;
 
 use App\Models\Account;
 use App\Models\Employee;
@@ -22,9 +23,9 @@ Route::middleware(['auth.check'])->group(function () {
 
     Route::get('/profil', [AuthController::class, 'showProfil'])->name('profil');
     
-    Route::get('/survey/makanan', [AuthController::class, 'showSurveyMakanan'])->name('surveyMakanan');
-    Route::post('/survey/makanan', [AuthController::class, 'surveyMakanan'])->name('surveyMakanan.post');
+    Route::get('/survey/makanan', [SurveyController::class, 'showSurveyMakanan'])->name('surveyMakanan');
+    Route::post('/survey/makanan', [SurveyController::class, 'surveyMakanan'])->name('surveyMakanan.post');
 
-    Route::get('/survey/alergi', [AuthController::class, 'showSurveyAlergi'])->name('surveyAlergi');
-    Route::post('/survey/alergi', [AuthController::class, 'surveyAlergi'])->name('surveyAlergi.post');
+    Route::get('/survey/alergi', [SurveyController::class, 'showSurveyAlergi'])->name('surveyAlergi');
+    Route::post('/survey/alergi', [SurveyController::class, 'surveyAlergi'])->name('surveyAlergi.post');
 });

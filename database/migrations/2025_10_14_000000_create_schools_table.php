@@ -11,17 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schools', function (Blueprint $table) {
-            $table->id(); // Primary key, auto increment
-            $table->string('name', 255);
-            $table->text('location');
-            $table->integer('total_student');
-            $table->integer('total_meal');
-            $table->integer('total_allergy');
-            $table->text('type_allergy');
-            $table->string('logo', 255);
-            $table->timestamps(); // created_at & updated_at
-        });
+        if (!Schema::hasTable('school')) {
+            Schema::create('schools', function (Blueprint $table) {
+                $table->id(); // Primary key, auto increment
+                $table->string('name', 255);
+                $table->text('location');
+                $table->integer('total_student');
+                $table->integer('total_meal');
+                $table->integer('total_allergy');
+                $table->text('type_allergy');
+                $table->string('logo', 255);
+                $table->timestamps(); // created_at & updated_at
+            });
+        }
     }
 
     /**
