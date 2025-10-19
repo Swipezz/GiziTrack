@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login | GiziTrack</title>
+  <title>Register | GiziTrack</title>
   <style>
     body {
       margin: 0;
@@ -21,7 +21,7 @@
       align-items: center;
     }
 
-    .login-container {
+    .register-container {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -29,7 +29,7 @@
       width: 100%;
     }
 
-    .login-container h2 {
+    .register-container h2 {
       color: white;
       font-size: 26px;
       margin-bottom: 30px;
@@ -59,7 +59,7 @@
       color: black;
     }
 
-    .btn-login {
+    .btn-register {
       background-color: #3B82F6;
       color: white;
       border: none;
@@ -72,23 +72,23 @@
       width: auto;
     }
 
-    .btn-login:hover {
+    .btn-register:hover {
       background-color: #2563EB;
     }
 
-    .register-text {
+    .login-text {
       margin-top: 20px;
       font-size: 14px;
       color: white;
     }
 
-    .register-text a {
+    .login-text a {
       color: #3B82F6;
       text-decoration: none;
       font-weight: bold;
     }
 
-    .register-text a:hover {
+    .login-text a:hover {
       text-decoration: underline;
     }
 
@@ -124,20 +124,22 @@
         width: 55%; 
         height: 200px;
     }
+
   </style>
 </head>
 <body>
   <div class="left-section">
-    <div class="login-container">
+    <div class="register-container">
       <h2>Gizi Track</h2>
-      <form action="{{ route('login.post') }}" method="POST">
+      <form action="{{ route('register.post') }}" method="POST">
         @csrf
         <input type="text" class="form-input" name="username" placeholder="Username" required>
-        <input type="password" class="form-input" name="password" placeholder="Password" required>
-        <button type="submit" class="btn-login">Login</button>
+        <input type="Password" class="form-input" name="password" placeholder="Password" required>
+        <input type="" class="form-input" name="" placeholder="" required>
+        <button type="submit" class="btn-register">Register</button>
       </form>
-      <p class="register-text">
-        <a href="{{ route('register') }}">Register</a>
+      <p class="login-text">
+        <a href="{{ route('login') }}">Login</a>
       </p>
     </div>
   </div>

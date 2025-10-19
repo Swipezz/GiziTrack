@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;
-
 use App\Models\Account;
 
 class AuthController extends Controller
@@ -46,8 +45,21 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success', 'Anda telah logout.');
     }
 
-    public function showProfile()
+
+    public function showRegister()
     {
-        return view('Profil');
+        return view('Register');
+    }
+    public function register(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|unique:account,username',
+            'password' => 'required|min:4',
+        ]);
+        $account = new Account();
+        $account->username = $request->username;
+        $account->password = $request->password;
+        $account->save();
+        return redirect()->route('login')->with('success', 'Registrasi berhasil.');
     }
 }
