@@ -10,12 +10,8 @@ class SurveyAllergy extends Model
     use HasFactory;
 
     protected $table = 'survey_allergy';
-
-    protected $fillable = [
-        'school',
-        'allergy',
-    ];
-
-    // Jika tabel tidak punya created_at & updated_at, tambahkan:
+    protected $primaryKey = 'id';
     public $timestamps = false;
+
+    protected $fillable = ['school', 'allergy'];
 }

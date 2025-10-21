@@ -150,53 +150,10 @@
     </style>
 </head>
 <body>
-
-    <div class="header">
-        <div style="display: flex; align-items: center; gap: 10px; height: 100%;">
-        <img src="{{ asset('images/GiziTrackLogo.png') }}" 
-             alt="Logo GiziTrack" 
-             style="height: 75px; width: auto; object-fit: contain;">
-        <h2>Gizi Track</h2>
-        </div>
-        <div class="header-right">
-            <div class="date-box">
-                <span class="day">Jumat</span>
-                <span class="date">17 Oktober 2025</span>
-            </div>
-
-            <form action="{{ route('profil') }}" method="get">
-                <button type="submit" class="profile-btn">
-                    <img src="{{ asset('images/profile.jpg') }}" alt="Profil">
-                </button>
-            </form>
-        </div>
-    </div>
+    <x-header />
 
     <div class="main-container">
-        <div class="sidebar">
-            <div class="menu">
-                <form action="{{ route('beranda') }}" method="get">
-                    <button type="submit">Beranda</button>
-                </form>
-
-                <form action="{{ route('sekolah') }}" method="get">
-                    <button type="submit">Sekolah</button>
-                </form>
-
-                <form action="{{ route('survey_makanan') }}" method="get">
-                    <button type="submit">Survey Makanan Tidak Dimakan</button>
-                </form>
-
-                <form action="{{ route('survey_alergi') }}" method="get">
-                    <button type="submit">Survey Alergi</button>
-                </form>
-            </div>
-
-            <form action="{{ route('logout') }}" method="post">
-                @csrf
-                <button type="submit" class="logout-btn">Log Out</button>
-            </form>
-        </div>
+        <x-layout />
 
         <div class="content">
 

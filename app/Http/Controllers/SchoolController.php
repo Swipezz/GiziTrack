@@ -9,9 +9,9 @@ class SchoolController extends Controller
 {
     public function showBeranda()
     {
-        $school = School::select('id', 'name', 'location')->get();
+        $schools = School::select('logo', 'name', 'location', 'total_meal')->get();
 
-        return view('Beranda', ['school' => $school]);
+        return view('Beranda', ['schools' => $schools]);
     }
 
     public function showSekolah()

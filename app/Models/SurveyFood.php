@@ -10,12 +10,8 @@ class SurveyFood extends Model
     use HasFactory;
 
     protected $table = 'survey_food';
-
-    protected $fillable = [
-        'school',
-        'food',
-        'total',
-    ];
-
+    protected $primaryKey = 'id';
     public $timestamps = false;
+
+    protected $fillable = ['school', 'food', 'total'];
 }

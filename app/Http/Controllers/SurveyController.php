@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\SurveyFood;
 use App\Models\SurveyAllergy;
-
 
 class SurveyController extends Controller
 {
@@ -16,23 +16,30 @@ class SurveyController extends Controller
 
     public function surveyMakanan(Request $request)
     {
-        $request->validate([
-            'sekolah' => 'required|string',
-            'makanan' => 'required|array',
-            'total' => 'required|array',
-            'makanan.*' => 'required|string',
-            'total.*' => 'required|integer',
-        ]);
+        $school = $request->input('school');
+        $foods = $request->input('food');
+        $totals = $request->input('total');
 
-        foreach ($request->makanan as $index => $foodName) {
+        if (!$school) {
+            return back()->with('error', 'Nama sekolah harus diisi.');
+        }
+
+        for ($i = 0; $i < count($foods); $i++) {
+            $food = trim($foods[$i]);
+            $total = trim($totals[$i]);
+
+            if ($food === '' || $total === '') {
+                continue;
+            }
+
             SurveyFood::create([
-                'school' => $request->sekolah,
-                'food' => $foodName,
-                'total' => $request->total[$index] ?? 0,
+                'school' => $school,
+                'food'   => $food,
+                'total'  => (int)$total,
             ]);
         }
 
-        return redirect('/beranda')->with('success', 'Survey berhasil dikirim!');
+        return redirect()->route('survey_makanan');
     }
 
         public function showSurveyAlergi()
@@ -42,17 +49,18 @@ class SurveyController extends Controller
 
     public function surveyAlergi(Request $request)
     {
-        $request->validate([
-            'sekolah' => 'required|string',
-            'alergi' => 'required|string',
-        ]);
+        $school = $request->input('school');
+        $allergy = $request->input('allergy');
+
+        if (!$school) {
+            return back()->with('error', 'Nama sekolah harus diisi.');
+        }
 
         SurveyAllergy::create([
-            'school' => $request->sekolah,
-            'allergy' => $request->alergi,
+            'school' => $school,
+            'allergy' => $allergy,
         ]);
 
-        return redirect('/beranda')->with('success', 'Survey alergi berhasil dikirim!');
+        return redirect()->route('survey_alergi');
     }
-
 }

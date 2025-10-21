@@ -155,7 +155,6 @@
         .content > div:last-of-type {
             margin-top: auto;
         }
-     
 
         .content h3 {
             color: #0a1f44;
@@ -207,113 +206,78 @@
             background-color: white;
             width: 50%; 
             margin: 2px 0;
-            padding: 50px 25px;
+            padding: 25px 25px;
+            font-size: 16px;
             box-sizing: border-box;
         }
-
     </style>
 </head>
 <body>
-    <div class="header">
-        <div style="display: flex; align-items: center; gap: 10px; height: 100%;">
-        <img src="{{ asset('images/GiziTrackLogo.png') }}" 
-             alt="Logo GiziTrack" 
-             style="height: 60px; width: auto; object-fit: contain;">
-        <h2>Gizi Track</h2>
-        </div>
-        <div class="header-right">
-            <div class="date-box">
-                <span class="day">Jumat</span>
-                <span class="date">17 Oktober 2025</span>
-            </div>
-
-            <form action="{{ route('profil') }}" method="get">
-                <button type="submit" class="profile-btn">
-                    <img src="{{ asset('images/profile.jpg') }}" alt="Profil">
-                </button>
-            </form>
-        </div>
-    </div>
+    <x-header />
 
 <div class="main-container">
-        <div class="sidebar">
-            <div class="menu">
-                <form action="{{ route('beranda') }}" method="get">
-                    <button type="submit">Beranda</button>
-                </form>
-
-                <form action="{{ route('sekolah') }}" method="get">
-                    <button type="submit">Sekolah</button>
-                </form>
-
-                <form action="{{ route('survey_makanan') }}" method="get">
-                    <button type="submit">Survey Makanan Tidak Dimakan</button>
-                </form>
-
-                <form action="{{ route('survey_alergi') }}" method="get">
-                    <button type="submit">Survey Alergi</button>
-                </form>
-            </div>
-
-            <form action="{{ route('logout') }}" method="post">
-                @csrf
-                <button type="submit" class="logout-btn">Log Out</button>
-            </form>
-        </div>
+    <x-layout />
 
     <div class="content">
-    <h3>Survey Makanan Tidak Dimakan</h3>
+        <h3>Survey Makanan Tidak Dimakan</h3>
 
-    <input type="text" class="school-input" placeholder="Nama Sekolah"
-           oninput="this.value=this.value.replace(/[^a-zA-Z0-9., ]/g,'')">
+        <form action="{{ route('survey_makanan.post') }}" method="POST" style="display: flex; flex-direction: column; align-items: center;">
+            @csrf
 
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 800px;">
-        <div class="foodname">
-            <input type="text""
-                   oninput="this.value=this.value.replace(/[^a-zA-Z0-9., ]/g,'')">
-            <input type="text" class="total"
-                   oninput="this.value=this.value.replace(/[^0-9.,]/g,'')">
-        </div>
-        <div class="foodname">
-            <input type="text"
-                   oninput="this.value=this.value.replace(/[^a-zA-Z0-9., ]/g,'')">
-            <input type="text" class="total"
-                   oninput="this.value=this.value.replace(/[^0-9.,]/g,'')">
-        </div>
-        <div class="foodname">
-            <input type="text"
-                   oninput="this.value=this.value.replace(/[^a-zA-Z0-9., ]/g,'')">
-            <input type="text" class="total"
-                   oninput="this.value=this.value.replace(/[^0-9.,]/g,'')">
-        </div>
-        <div class="foodname">
-            <input type="text"
-                   oninput="this.value=this.value.replace(/[^a-zA-Z0-9., ]/g,'')">
-            <input type="text" class="total"
-                   oninput="this.value=this.value.replace(/[^0-9.,]/g,'')">
-        </div>
-        <div class="foodname">
-            <input type="text"
-                   oninput="this.value=this.value.replace(/[^a-zA-Z0-9., ]/g,'')">
-            <input type="text" class="total"
-                   oninput="this.value=this.value.replace(/[^0-9.,]/g,'')">
-        </div>
-        <div class="foodname">
-            <input type="text"
-                   oninput="this.value=this.value.replace(/[^a-zA-Z0-9., ]/g,'')">
-            <input type="text" class="total"
-                   oninput="this.value=this.value.replace(/[^0-9.,]/g,'')">
-        </div>
-    </div>
+            {{-- Input Nama Sekolah (di tengah) --}}
+            <div style="width: 100%; display: flex; justify-content: center; margin-bottom: 30px;">
+                <input type="text" name="school"
+                    class="school-input"
+                    placeholder="Nama Sekolah"
+                    style="border: 2px solid black;
+                           border-radius: 8px;
+                           background-color: white;
+                           width: 80%;
+                           max-width: 400px;
+                           padding: 15px 20px;
+                           font-size: 16px;
+                           text-align: center;"
+                    oninput="this.value=this.value.replace(/[^a-zA-Z0-9., ]/g,'')"
+                    required>
+            </div>
 
-    <div style="width: 80%; display: flex; justify-content: flex-end; margin-top: 40px;">
-        <button type="button"
-                style="background-color: #d4bb41; color: black; border: none; border-radius: 8px; padding: 10px 30px; font-size: 16px; cursor: pointer;">
-            Kirim
-        </button>
+            {{-- Input makanan dan total (sejajar horizontal) --}}
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 800px;">
+                @for ($i = 0; $i < 6; $i++)
+                    <div class="foodname" style="display: flex; flex-direction: row; align-items: center; gap: 10px;">
+                        <input type="text" name="food[]" placeholder="Nama makanan"
+                            style="border-radius: 8px;
+                                   padding: 10px 15px;
+                                   width: 200px;"
+                            oninput="this.value=this.value.replace(/[^a-zA-Z0-9., ]/g,'')">
+
+                        <input type="text" name="total[]" placeholder="Jumlah"
+                            class="total"
+                            style="border-radius: 8px;
+                                   padding: 10px 15px;
+                                   width: 100px;
+                                   text-align: center;"
+                            oninput="this.value=this.value.replace(/[^0-9.,]/g,'')">
+                    </div>
+                @endfor
+            </div>
+
+            <div style="width: 80%; display: flex; justify-content: flex-end; margin-top: 40px;">
+                <button type="submit"
+                    style="background-color: #d4bb41;
+                           color: black;
+                           border: none;
+                           border-radius: 8px;
+                           padding: 10px 30px;
+                           font-size: 16px;
+                           cursor: pointer;">
+                    Kirim
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 
-</div>
+
 </body>
 </html>

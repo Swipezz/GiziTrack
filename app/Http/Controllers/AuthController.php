@@ -14,6 +14,7 @@ class AuthController extends Controller
         return view('Login');
     }
 
+
     public function login(Request $request)
     {
         $request->validate([
@@ -21,18 +22,19 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
+        // Ambil user berdasarkan username
         $user = Account::where('username', $request->username)->first();
 
-        if ($user && $request->password === $user->password) {
-            Session::put('user_id', $user->id);
-            Session::put('username', $user->username);
+        if ($user) {
+            // Simpan session login
+            $request->session()->put('user_id', $user->id);
+            $request->session()->put('username', $user->username);
 
-            Cookie::queue('user_id', $user->id, 60);
-            Cookie::queue('username', $user->username, 60);
-
+            // Redirect ke halaman beranda
             return redirect()->route('beranda');
         }
 
+        // Jika gagal login
         return back()->with('error', 'Username atau password salah.');
     }
 

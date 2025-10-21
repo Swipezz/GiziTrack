@@ -18,7 +18,6 @@ class Account extends Model
         'password',
         'created_at',
         'office',
-        'employee'
     ];
 
     public function employees()

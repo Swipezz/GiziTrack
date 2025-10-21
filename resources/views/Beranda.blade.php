@@ -148,7 +148,6 @@
             width: 100%;
             margin-left: 220px;
         }
-     
 
         .content h3 {
             color: #0a1f44;
@@ -170,6 +169,12 @@
             margin: 20px 0;
             padding: 15px 25px;
             box-sizing: border-box;
+            background-color: white;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .school-box.checked {
+            background-color: #f0f0f0; /* abu lembut */
+            opacity: 0.9;
         }
 
         .school-left {
@@ -218,167 +223,50 @@
     </style>
 </head>
 <body>
+    <x-header />
 
-    <div class="header">
-        <div style="display: flex; align-items: center; gap: 10px; height: 100%;">
-        <img src="{{ asset('images/GiziTrackLogo.png') }}" 
-             alt="Logo GiziTrack" 
-             style="height: 60px; width: auto; object-fit: contain;">
-        <h2>Gizi Track</h2>
-        </div>
-        <div class="header-right">
-            <div class="date-box">
-                <span class="day">Jumat</span>
-                <span class="date">17 Oktober 2025</span>
-            </div>
+    <div class="main-container">
+        <x-layout />
 
-            <form action="{{ route('profil') }}" method="get">
-                <button type="submit" class="profile-btn">
-                    <img src="{{ asset('images/profile.jpg') }}" alt="Profil">
-                </button>
-            </form>
-        </div>
-    </div>
+        <div class="content" id="school-list">
+            <h3>Beranda</h3>
+            @foreach ($schools as $school)
+                <div class="school-box flex justify-between items-center border p-4 rounded-lg mb-4 shadow-sm">
+                    <div class="school-left flex items-center gap-4">
+                        <div class="school-logo w-16 h-16">
+                            <img src="{{ asset($school->logo) }}" alt="Logo Sekolah" class="w-full h-full object-contain">
+                        </div>
+                        <div class="school-info text-sm">
+                            <p><strong>Nama Sekolah:</strong> {{ $school->name }}</p>
+                            <p><strong>Alamat:</strong> {{ $school->location }}</p>
+                            <p><strong>Jumlah porsi:</strong> {{ $school->total_meal }}</p>
+                        </div>
+                    </div>
 
-<div class="main-container">
-        <div class="sidebar">
-            <div class="menu">
-                <form action="{{ route('beranda') }}" method="get">
-                    <button type="submit">Beranda</button>
-                </form>
-
-                <form action="{{ route('sekolah') }}" method="get">
-                    <button type="submit">Sekolah</button>
-                </form>
-
-                <form action="{{ route('survey_makanan') }}" method="get">
-                    <button type="submit">Survey Makanan Tidak Dimakan</button>
-                </form>
-
-                <form action="{{ route('survey_alergi') }}" method="get">
-                    <button type="submit">Survey Alergi</button>
-                </form>
-            </div>
-
-            <form action="{{ route('logout') }}" method="post">
-                @csrf
-                <button type="submit" class="logout-btn">Log Out</button>
-            </form>
-        </div>
-
-    <div class="content">
-        <h3>Beranda</h3>
-
-        <div class="school-box">
-            <div class="school-left">
-                <div class="school-logo">
-                    <img src="{{ asset('images/LogoSekolah.png') }}" alt="Logo Sekolah">
+                    <button class="checkmark-btn">
+                        <img src="{{ asset('images/Checkmark.png') }}" alt="Checkmark" class="w-6 h-6">
+                    </button>
                 </div>
-                <div class="school-info">
-                    <p><strong>Nama Sekolah</strong></p>
-                    <p>Alamat Sekolah</p>
-                    <p>Jumlah porsi:</p>
-                </div>
-            </div>
-            <button class="checkmark-btn">
-                <img src="{{ asset('images/checkmark.png') }}" alt="Checkmark">
-            </button>
-        </div>
-
-        <div class="school-box">
-            <div class="school-left">
-                <div class="school-logo">
-                    <img src="{{ asset('images/LogoSekolah.png') }}" alt="Logo Sekolah">
-                </div>
-                <div class="school-info">
-                    <p><strong>Nama Sekolah</strong></p>
-                    <p>Alamat Sekolah</p>
-                    <p>Jumlah porsi:</p>
-                </div>
-            </div>
-            <button class="checkmark-btn">
-                <img src="{{ asset('images/checkmark.png') }}" alt="Checkmark">
-            </button>
-        </div>
-
-        <div class="school-box">
-            <div class="school-left">
-                <div class="school-logo">
-                    <img src="{{ asset('images/LogoSekolah.png') }}" alt="Logo Sekolah">
-                </div>
-                <div class="school-info">
-                    <p><strong>Nama Sekolah</strong></p>
-                    <p>Alamat Sekolah</p>
-                    <p>Jumlah porsi:</p>
-                </div>
-            </div>
-            <button class="checkmark-btn">
-                <img src="{{ asset('images/checkmark.png') }}" alt="Checkmark">
-            </button>
-            
-        </div>
-        <div class="school-box">
-            <div class="school-left">
-                <div class="school-logo">
-                    <img src="{{ asset('images/LogoSekolah.png') }}" alt="Logo Sekolah">
-                </div>
-                <div class="school-info">
-                    <p><strong>Nama Sekolah</strong></p>
-                    <p>Alamat Sekolah</p>
-                    <p>Jumlah porsi:</p>
-                </div>
-            </div>
-            <button class="checkmark-btn">
-                <img src="{{ asset('images/checkmark.png') }}" alt="Checkmark">
-            </button>
-        </div>
-        <div class="school-box">
-            <div class="school-left">
-                <div class="school-logo">
-                    <img src="{{ asset('images/LogoSekolah.png') }}" alt="Logo Sekolah">
-                </div>
-                <div class="school-info">
-                    <p><strong>Nama Sekolah</strong></p>
-                    <p>Alamat Sekolah</p>
-                    <p>Jumlah porsi:</p>
-                </div>
-            </div>
-            <button class="checkmark-btn">
-                <img src="{{ asset('images/checkmark.png') }}" alt="Checkmark">
-            </button>
-        </div>
-        <div class="school-box">
-            <div class="school-left">
-                <div class="school-logo">
-                    <img src="{{ asset('images/LogoSekolah.png') }}" alt="Logo Sekolah">
-                </div>
-                <div class="school-info">
-                    <p><strong>Nama Sekolah</strong></p>
-                    <p>Alamat Sekolah</p>
-                    <p>Jumlah porsi:</p>
-                </div>
-            </div>
-            <button class="checkmark-btn">
-                <img src="{{ asset('images/checkmark.png') }}" alt="Checkmark">
-            </button>
-        </div>
-        <div class="school-box">
-            <div class="school-left">
-                <div class="school-logo">
-                    <img src="{{ asset('images/LogoSekolah.png') }}" alt="Logo Sekolah">
-                </div>
-                <div class="school-info">
-                    <p><strong>Nama Sekolah</strong></p>
-                    <p>Alamat Sekolah</p>
-                    <p>Jumlah porsi:</p>
-                </div>
-            </div>
-            <button class="checkmark-btn">
-                <img src="{{ asset('images/checkmark.png') }}" alt="Checkmark">
-            </button>
-        </div>
+            @endforeach
         </div>
     </div>
 
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const schoolList = document.getElementById("school-list");
+
+        schoolList.addEventListener("click", (e) => {
+            if (e.target.closest(".checkmark-btn")) {
+                const box = e.target.closest(".school-box");
+
+                // Ubah warna box jadi abu-abu
+                box.classList.add("checked");
+
+                // Pindahkan box ke paling bawah
+                schoolList.appendChild(box);
+            }
+        });
+    });
+    </script>
 </body>
 </html>
