@@ -8,11 +8,11 @@
             <button type="submit">Sekolah</button>
         </form>
 
-        <form action="{{ route('survey_makanan') }}" method="get">
+        <form action="{{ route('surveyMakanan') }}" method="get">
             <button type="submit">Survey Makanan</button>
         </form>
 
-        <form action="{{ route('survey_alergi') }}" method="get">
+        <form action="{{ route('surveyAlergi') }}" method="get">
             <button type="submit">Survey Alergi</button>
         </form>
     </div>

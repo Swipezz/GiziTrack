@@ -39,7 +39,7 @@ class SurveyController extends Controller
             ]);
         }
 
-        return redirect()->route('survey_makanan');
+        return redirect()->route('surveyMakanan');
     }
 
         public function showSurveyAlergi()
@@ -61,6 +61,6 @@ class SurveyController extends Controller
             'allergy' => $allergy,
         ]);
 
-        return redirect()->route('survey_alergi');
+        return redirect()->route('surveyAlergi');
     }
 }

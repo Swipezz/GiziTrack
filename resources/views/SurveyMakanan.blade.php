@@ -9,6 +9,16 @@
             box-sizing: border-box;
         }
 
+        .kirim-container button{
+            background-color: #d4bb41;
+            color: black;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 30px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -31,6 +41,7 @@
             left: 0;
             z-index: 1000;        
         }
+
 
         .header h2 {
             margin: 0;
@@ -144,134 +155,105 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            height: calc(100vh - 60px);
-            padding bottom: 30px;
-            padding: 20px 0;
+            padding: 40px 0;
             width: 100%;
             margin-left: 220px;
-            height: auto;
         }
-
-        .content > div:last-of-type {
-            margin-top: auto;
-        }
+    
 
         .content h3 {
             color: #0a1f44;
             align-self: flex-start; 
             margin-left: 10%; 
             margin-bottom: 10px;
-            font-size: 40px;
+            font-size: 37px;
             gap: 20px;
         }
 
-        .foodname {
-            display: flex;
-            align-items: center;
+        .input-box {
+            width: 80%;
             border: 2px solid black;
             border-radius: 8px;
-            background-color: white;
-            width: 320px;
-            height: 45px;
-            overflow: hidden;
-        }
-
-        .foodname input[type="text"] {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            outline: none;
-            text-align: center;
-            font-size: 14px;
-        }
-
-        .foodname input[type="text"].total {
-            width: 90px;
-            border-left: 2px solid black;
-            text-align: center;
-            outline: none;
-            font-size: 14px;
-        }
-
-        input[type="number"] {
-            -moz-appearance: textfield;
-        }
-
-        .school-input {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 2px solid black;
-            border-radius: 8px;
-            background-color: white;
-            width: 50%; 
-            margin: 2px 0;
             padding: 25px 25px;
             font-size: 16px;
             box-sizing: border-box;
+            outline: none;
+            margin-bottom: 25px;
         }
+
+        .label {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+            display: block;
+            color: #000;
+            width: 80%;           
+            text-align: left;     
+            margin-left: auto;    
+            margin-right: auto;
+        }
+
+        .small-input {
+            width: 80%;
+            border: 2px solid black;
+            border-radius: 8px;
+            padding: 40px 12px;
+            font-size: 15px;
+            box-sizing: border-box;
+            outline: none;
+            margin-bottom: 20px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .small-input::placeholder {
+            text-align: left;
+        }
+
+        .kirim-container {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 40px;
+        }
+
+
     </style>
 </head>
 <body>
     <x-header />
-<div class="main-container">
-    <x-layout />
 
-    <div class="content">
-        <h3>Survey Makanan Tidak Dimakan</h3>
-        <form action="{{ route('survey_makanan.post') }}" method="POST" style="display: flex; flex-direction: column; align-items: center;">
-            @csrf
-            <div style="width: 100%; display: flex; justify-content: center; margin-bottom: 30px;">
-                <input type="text" name="school"
-                    class="school-input"
-                    placeholder="Nama Sekolah"
-                    style="border: 2px solid black;
-                           border-radius: 8px;
-                           background-color: white;
-                           width: 80%;
-                           max-width: 400px;
-                           padding: 15px 20px;
-                           font-size: 16px;
-                           text-align: center;"
-                    oninput="this.value=this.value.replace(/[^a-zA-Z0-9., ]/g,'')"
-                    required>
-            </div>
+    <div class="main-container">
+        <x-layout />
 
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 800px;">
+        <div class="content">
+            <h3>Survey Makanan Tidak Dimakan</h3>
+
+            <form class="label" action="{{ route('surveyMakanan.post') }}" method="POST" style="padding-right: 30%">
+                @csrf
+                <div style="display: flex; align-items: left; gap: 10px; margin-bottom: 15px;">
+                    <input placeholder="Pilih Sekolah" type="text" class="input-box" name="school" style="flex-grow: 1; margin-bottom: 0; width:75%">
+                    <div class="kirim-container" style="margin-top: 0; width: 25%;">
+                        <button type="submit" style="width: 100%">Kirim</button>
+                    </div>
+                </div>
+
                 @for ($i = 0; $i < 6; $i++)
-                    <div class="foodname" style="display: flex; flex-direction: row; align-items: center; gap: 10px;">
-                        <input type="text" name="food[]" placeholder="Nama makanan"
-                            style="border-radius: 8px;
-                                   padding: 10px 15px;
-                                   width: 200px;"
-                            oninput="this.value=this.value.replace(/[^a-zA-Z0-9., ]/g,'')">
+                    <div style="display: flex; flex-direction: row; align-items: center; gap: 10px; margin-bottom: 15px;">
+                        <input class="input-box" type="text" name="food[]" placeholder="Nama makanan"
+                            style="width: 75%; margin-bottom: 0;"
+                            oninput="this.value=this.value.replace(/[^a-zA-Z0-9\s.,-]/g,'')">
 
-                        <input type="text" name="total[]" placeholder="Jumlah"
+                        <input class="input-box" type="text" name="total[]" placeholder="Jumlah"
                             class="total"
-                            style="border-radius: 8px;
-                                   padding: 10px 15px;
-                                   width: 100px;
-                                   text-align: center;"
-                            oninput="this.value=this.value.replace(/[^0-9.,]/g,'')">
+                            style="width: 25%; text-align: center; margin-bottom: 0;"
+                            oninput="this.value=this.value.replace(/[^0-9]/g,'')">
                     </div>
                 @endfor
-            </div>
 
-            <div style="width: 80%; display: flex; justify-content: flex-end; margin-top: 40px;">
-                <button type="submit"
-                    style="background-color: #d4bb41;
-                           color: black;
-                           border: none;
-                           border-radius: 8px;
-                           padding: 10px 30px;
-                           font-size: 16px;
-                           cursor: pointer;">
-                    Kirim
-                </button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
 </body>
 </html>

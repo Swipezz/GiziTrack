@@ -166,7 +166,7 @@
             align-self: flex-start; 
             margin-left: 10%; 
             margin-bottom: 10px;
-            font-size: 40px;
+            font-size: 37px;
             gap: 20px;
         }
 
@@ -211,7 +211,7 @@
         }
 
         .kirim-container {
-            width: 80%;
+            width: 100%;
             display: flex;
             justify-content: flex-end;
             margin-top: 40px;
@@ -227,18 +227,22 @@
         <x-layout />
 
         <div class="content">
-            <h3>Alergi</h3>
+            <h3>Survey Alergi</h3>
 
-            <form action="{{ route('survey_alergi.post') }}" method="POST" class="label">
+            <form class="label" action="{{ route('surveyAlergi.post') }}" method="POST" style="padding-right: 30%">
                 @csrf
-                <label class="label" style="margin-left: 0">Sekolah:</label>
-                <input type="text" class="input-box" name="school">
+                <div style="display: flex; align-items: left; gap: 10px; margin-bottom: 15px;">
+                    <input placeholder="Pilih Sekolah" type="text" class="input-box" name="school" style="flex-grow: 1; margin-bottom: 0; width:75%">
+                    <div class="kirim-container" style="margin-top: 0; width: 25%;">
+                        <button type="submit" style="width: 100%">Kirim</button>
+                    </div>
+                </div>
 
-                <label class="label" style="margin-left: 0">Alergi Makanan:</label>
-                <input type="text" class="input-box" name="allergy">
+                    <div style="display: flex; flex-direction: row; align-items: center; gap: 10px; margin-bottom: 15px;">
+                        <input class="input-box" type="text" name="allergy" placeholder="List alergi"
+                            style="width: 100%; margin-bottom: 0;">
+                    </div>
 
-                <div class="kirim-container">
-                <button type="submit">Kirim</button>
             </form>
         </div>
     </div>

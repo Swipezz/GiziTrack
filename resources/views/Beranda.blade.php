@@ -173,7 +173,7 @@
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
         .school-box.checked {
-            background-color: #f0f0f0;
+            background-color: #9e9e9eff;
             opacity: 0.9;
         }
 
@@ -244,7 +244,7 @@
                     </div>
 
                     <button class="checkmark-btn">
-                        <img src="{{ asset('images/Checkmark.png') }}" alt="Checkmark" class="w-6 h-6">
+                        <img src="{{ asset('images/Checkmark.png') }}" alt="Checkmark" class="checked w-6 h-6">
                     </button>
                 </div>
             @endforeach
@@ -256,12 +256,12 @@
         const schoolList = document.getElementById("school-list");
 
         schoolList.addEventListener("click", (e) => {
-            if (e.target.closest(".checkmark-btn")) {
-                const box = e.target.closest(".school-box");
-
+            const checkmarkButton = e.target.closest(".checkmark-btn");
+            if (checkmarkButton) {
+                const box = checkmarkButton.closest(".school-box");
                 box.classList.add("checked");
-
                 schoolList.appendChild(box);
+                checkmarkButton.remove();
             }
         });
     });
