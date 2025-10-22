@@ -32,7 +32,6 @@
             z-index: 1000;        
         }
 
-
         .header h2 {
             margin: 0;
             font-size: 22px;
@@ -144,12 +143,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-start;
             height: calc(100vh - 60px);
             padding bottom: 30px;
-            padding: 40px 0;
+            padding: 20px 0;
             width: 100%;
             margin-left: 220px;
+            height: auto;
         }
 
         .content > div:last-of-type {
@@ -214,17 +214,13 @@
 </head>
 <body>
     <x-header />
-
 <div class="main-container">
     <x-layout />
 
     <div class="content">
         <h3>Survey Makanan Tidak Dimakan</h3>
-
         <form action="{{ route('survey_makanan.post') }}" method="POST" style="display: flex; flex-direction: column; align-items: center;">
             @csrf
-
-            {{-- Input Nama Sekolah (di tengah) --}}
             <div style="width: 100%; display: flex; justify-content: center; margin-bottom: 30px;">
                 <input type="text" name="school"
                     class="school-input"
@@ -241,7 +237,6 @@
                     required>
             </div>
 
-            {{-- Input makanan dan total (sejajar horizontal) --}}
             <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 800px;">
                 @for ($i = 0; $i < 6; $i++)
                     <div class="foodname" style="display: flex; flex-direction: row; align-items: center; gap: 10px;">
@@ -277,7 +272,6 @@
         </form>
     </div>
 </div>
-
 
 </body>
 </html>

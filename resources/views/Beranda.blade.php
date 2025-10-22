@@ -173,7 +173,7 @@
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
         .school-box.checked {
-            background-color: #f0f0f0; /* abu lembut */
+            background-color: #f0f0f0;
             opacity: 0.9;
         }
 
@@ -259,10 +259,8 @@
             if (e.target.closest(".checkmark-btn")) {
                 const box = e.target.closest(".school-box");
 
-                // Ubah warna box jadi abu-abu
                 box.classList.add("checked");
 
-                // Pindahkan box ke paling bawah
                 schoolList.appendChild(box);
             }
         });
