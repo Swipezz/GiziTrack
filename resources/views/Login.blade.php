@@ -136,9 +136,6 @@
         <input type="password" class="form-input" name="password" placeholder="Password" required>
         <button type="submit" class="btn-login">Login</button>
       </form>
-      <p class="register-text">
-        <a href="{{ route('register') }}">Register</a>
-      </p>
     </div>
   </div>
 

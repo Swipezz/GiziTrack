@@ -135,12 +135,10 @@
         @csrf
         <input type="text" class="form-input" name="username" placeholder="Username" required>
         <input type="Password" class="form-input" name="password" placeholder="Password" required>
-        <input type="" class="form-input" name="" placeholder="" required>
+        <input type="text" class="form-input" name="office" placeholder="Office" required>
+        <input type="text" class="form-input" name="employee" placeholder="Employee ID" required>
         <button type="submit" class="btn-register">Register</button>
       </form>
-      <p class="login-text">
-        <a href="{{ route('login') }}">Login</a>
-      </p>
     </div>
   </div>
 

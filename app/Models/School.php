@@ -17,7 +17,6 @@ class School extends Model
         'location',
         'total_student',
         'total_meal',
-        'total_allergy',
         'type_allergy',
         'logo',
     ];

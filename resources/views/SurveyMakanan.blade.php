@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey Makanan | GiziTrack</title>
     <style>
+        .info-box { 
+            width: 100%;
+            display: flex; 
+            flex-direction: column;
+            border: 2px solid black; 
+            border-radius: 8px; 
+            padding: 10px 15px; 
+        }
+
+        .info-box .labels { 
+            font-size: 14px; 
+            color: #555; 
+            margin-bottom: 5px; 
+        }
+
+        .info-box .values { 
+            font-size: 16px; 
+            color: #000; 
+            font-weight: bold; 
+            border: none;
+        }
+
         * {
             box-sizing: border-box;
         }
@@ -232,23 +254,26 @@
             <form class="label" action="{{ route('surveyMakanan.post') }}" method="POST" style="padding-right: 30%">
                 @csrf
                 <div style="display: flex; align-items: left; gap: 10px; margin-bottom: 15px;">
-                    <input placeholder="Pilih Sekolah" type="text" class="input-box" name="school" style="flex-grow: 1; margin-bottom: 0; width:75%">
+                    <div class="info-box"> 
+                        <span class="labels">Nama Sekolah</span> 
+                        <input class="values" value="" placeholder="Pilih Sekolah" name="school"> 
+                    </div> 
                     <div class="kirim-container" style="margin-top: 0; width: 25%;">
                         <button type="submit" style="width: 100%">Kirim</button>
                     </div>
                 </div>
 
                 @for ($i = 0; $i < 6; $i++)
-                    <div style="display: flex; flex-direction: row; align-items: center; gap: 10px; margin-bottom: 15px;">
-                        <input class="input-box" type="text" name="food[]" placeholder="Nama makanan"
-                            style="width: 75%; margin-bottom: 0;"
-                            oninput="this.value=this.value.replace(/[^a-zA-Z0-9\s.,-]/g,'')">
-
-                        <input class="input-box" type="text" name="total[]" placeholder="Jumlah"
-                            class="total"
-                            style="width: 25%; text-align: center; margin-bottom: 0;"
-                            oninput="this.value=this.value.replace(/[^0-9]/g,'')">
-                    </div>
+                <div style="display: flex; flex-direction: row; align-items: center; gap: 10px; margin-bottom: 15px;">
+                    <div class="info-box"> 
+                        <span class="labels">Nama Makanan</span> 
+                        <input class="values" value="" name="food[]" oninput="this.value=this.value.replace(/[^a-zA-Z0-9\s.,-]/g,'')"> 
+                    </div> 
+                    <div class="info-box" style="width: 20%"> 
+                        <span class="labels">Jumlah</span> 
+                        <input class="values" value="" name="total[]" oninput="this.value=this.value.replace(/[^0-9]/g,'')"> 
+                    </div> 
+                </div>
                 @endfor
 
             </form>

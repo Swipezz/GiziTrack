@@ -310,102 +310,85 @@
     <div class="main-container">
         <x-layout />
 
-        <div class="content"> 
-            <h1>Detail Sekolah</h1> 
-                <form class="detail-container" id="schoolForm" enctype="multipart/form-data">
-                    @csrf
-                    <div class="logo-section">
-                        <img id="schoolLogo" src="{{ asset($school->logo) }}" alt="Logo Sekolah" class="school-logo"> 
-                        
-                        <div class="upload-section" style="margin-top:10px;">
-                            <label class="label">Ganti Logo</label>
-                            <input type="file" name="logo" id="logoInput" accept="image/*" disabled>
-                        </div>
+        <div class="content">
+            <h1>Tambah Sekolah</h1>
+            <form class="detail-container" action="{{ route('storeSekolah') }}" method="POST" enctype="multipart/form-data" id="addSchoolForm">
+                @csrf
+
+                <div class="logo-section">
+                    <img id="previewLogo" 
+                            src="{{ asset('uploads/logo/default.png') }}" 
+                            alt="Logo Sekolah" 
+                            class="school-logo">
+
+                    <div class="upload-section" style="margin-top: 10px;">
+                        <label class="label">Upload Logo</label>
+                        <input type="file" name="logo" id="logoInput" accept="image/*">
+                        <small style="display:block; color:#666;">*Format: JPG, PNG, WEBP (maks 2MB)</small>
+                    </div>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-box">
+                        <span class="label">Nama Sekolah</span>
+                        <input class="value" name="name" placeholder="Masukkan nama sekolah" required>
                     </div>
 
-                    <div class="info-grid"> 
-                        <div class="info-box"> 
-                            <span class="label">Nama Sekolah</span> 
-                            <input class="value" name="name" value="{{ $school->name }}" disabled> 
-                        </div> 
-                        
-                        <div class="info-box info-wide"> 
-                            <span class="label">Alamat Sekolah</span> 
-                            <input class="value" name="location" value="{{ $school->location }}" disabled> 
-                        </div> 
-                        
-                        <div class="bottom-info">
-                            <div class="info-box"> 
-                                <span class="label">Jumlah Siswa</span> 
-                                <input class="value" name="total_student" value="{{ $school->total_student }}" disabled> 
-                            </div> 
-                            <div class="info-box"> 
-                                <span class="label">Jumlah Porsi</span> 
-                                <input class="value" name="total_meal" value="{{ $school->total_meal }}" disabled> 
-                            </div>
-                            <div class="info-box info-wide"> 
-                                <span class="label">Alergi</span> 
-                                <input class="value" name="type_allergy" value="{{ $school->type_allergy }}" disabled> 
-                        </div> 
+                    <div class="info-box info-wide">
+                        <span class="label">Alamat Sekolah</span>
+                        <input class="value" name="location" placeholder="Masukkan alamat sekolah" required>
                     </div>
-                    <button type="button" class="edit-btn" id="editBtn">Edit Data</button> 
-                </form>
-            </div> 
+
+                    <div class="bottom-info">
+                        <div class="info-box">
+                            <span class="label">Jumlah Siswa</span>
+                            <input class="value" name="total_student" type="number" min="1" placeholder="Contoh: 300" required>
+                        </div>
+
+                        <div class="info-box">
+                            <span class="label">Jumlah Porsi</span>
+                            <input class="value" name="total_meal" type="number" min="1" placeholder="Contoh: 300" required>
+                        </div>
+
+                        <div class="info-box info-wide">
+                            <span class="label">Alergi</span>
+                            <input class="value" name="type_allergy" placeholder="Contoh: Susu, Kacang, Telur">
+                        </div>
+                    </div>
+                    <button type="submit" class="edit-btn">Simpan Sekolah</button> 
+                </div>
+            </form>
+            </div>
         </div>
     </div>
 
     <script>
-        const editBtn = document.getElementById('editBtn');
-        const inputs = document.querySelectorAll('#schoolForm input:not([type=file])');
+        // Preview logo sebelum di-upload
         const fileInput = document.getElementById('logoInput');
-        const logoPreview = document.getElementById('schoolLogo');
-        const form = document.getElementById('schoolForm');
-        const schoolId = "{{ $school->id }}";
+        const previewLogo = document.getElementById('previewLogo');
 
-        // Preview gambar baru
         fileInput.addEventListener('change', e => {
             const file = e.target.files[0];
             if (file) {
-                const reader = new FileReader();
-                reader.onload = () => logoPreview.src = reader.result;
-                reader.readAsDataURL(file);
-            }
-        });
-
-        editBtn.addEventListener('click', async () => {
-            if (editBtn.textContent === 'Edit Data') {
-                // Aktifkan semua input
-                inputs.forEach(i => i.removeAttribute('disabled'));
-                fileInput.removeAttribute('disabled');
-                editBtn.textContent = 'Simpan Data';
-            } else {
-                const formData = new FormData(form);
-
-                try {
-                    const response = await fetch(`/sekolah/${schoolId}`, {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': form.querySelector('input[name="_token"]').value
-                        },
-                        body: formData
-                    });
-
-                    if (response.ok) {
-                        alert('Data berhasil disimpan!');
-                        // Kunci kembali input
-                        inputs.forEach(i => i.setAttribute('disabled', true));
-                        fileInput.setAttribute('disabled', true);
-                        editBtn.textContent = 'Edit Data';
-                    } else {
-                        alert('Gagal menyimpan data.');
-                    }
-                } catch (e) {
-                    alert('Terjadi kesalahan: ' + e.message);
+                if (!file.type.startsWith('image/')) {
+                    alert('File harus berupa gambar!');
+                    fileInput.value = '';
+                    return;
                 }
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('Ukuran gambar maksimal 2MB!');
+                    fileInput.value = '';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = () => previewLogo.src = reader.result;
+                reader.readAsDataURL(file);
             }
         });
     </script>
 </body>
+
 
 
 </html>

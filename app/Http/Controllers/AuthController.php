@@ -14,7 +14,6 @@ class AuthController extends Controller
         return view('Login');
     }
 
-
     public function login(Request $request)
     {
         $request->validate([
@@ -47,21 +46,22 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success', 'Anda telah logout.');
     }
 
-
-    public function showRegister()
-    {
-        return view('Register');
-    }
     public function register(Request $request)
     {
         $request->validate([
-            'username' => 'required|unique:account,username',
+            'username' => 'required|unique:account,username|max:255',
             'password' => 'required|min:4',
+            'office' => 'required|string',
+            'employee' => 'required|integer',
         ]);
+
         $account = new Account();
         $account->username = $request->username;
         $account->password = $request->password;
+        $account->office = $request->office;
+        $account->employee = $request->employee;
         $account->save();
+
         return redirect()->route('login')->with('success', 'Registrasi berhasil.');
     }
 }

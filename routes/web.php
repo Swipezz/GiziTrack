@@ -17,16 +17,21 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-Route::post('/register', [AuthController::class, 'register'])->name('register.post');
-
 Route::middleware(['auth.check'])->group(function () {
     Route::redirect('/', '/beranda');
 
+    Route::get('/admin/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/admin/register', [AuthController::class, 'register'])->name('register.post');
+
     Route::get('/beranda', [SchoolController::class, 'showBeranda'])->name('beranda');
 
+    Route::get('/sekolah/create', [SchoolController::class, 'create'])->name('createSekolah');
+
     Route::get('/sekolah', [SchoolController::class, 'showSekolah'])->name('sekolah');
+    Route::post('/sekolah', [SchoolController::class, 'store'])->name('storeSekolah');
+
     Route::get('/sekolah/{id}', [SchoolController::class, 'showDetailSekolah'])->name('detailSekolah');
+    Route::post('/sekolah/{id}', [SchoolController::class, 'updateSekolah'])->name('updateSekolah');
 
     Route::get('/profil', [ProfileController::class, 'showProfil'])->name('profil');
 

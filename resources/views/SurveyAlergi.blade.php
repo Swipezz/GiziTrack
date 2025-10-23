@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey Alergi | GiziTrack</title>
     <style>
+        .info-box { 
+            width: 100%;
+            display: flex; 
+            flex-direction: column;
+            border: 2px solid black; 
+            border-radius: 8px; 
+            padding: 10px 15px; 
+        }
+
+        .info-box .labels { 
+            font-size: 14px; 
+            color: #555; 
+            margin-bottom: 5px; 
+        }
+
+        .info-box .values { 
+            font-size: 16px; 
+            color: #000; 
+            font-weight: bold; 
+            border: none;
+        }
+
         * {
             box-sizing: border-box;
         }
@@ -216,10 +238,9 @@
             justify-content: flex-end;
             margin-top: 40px;
         }
-
-
     </style>
 </head>
+
 <body>
     <x-header />
 
@@ -232,17 +253,19 @@
             <form class="label" action="{{ route('surveyAlergi.post') }}" method="POST" style="padding-right: 30%">
                 @csrf
                 <div style="display: flex; align-items: left; gap: 10px; margin-bottom: 15px;">
-                    <input placeholder="Pilih Sekolah" type="text" class="input-box" name="school" style="flex-grow: 1; margin-bottom: 0; width:75%">
+                    <div class="info-box"> 
+                        <span class="labels">Nama Sekolah</span> 
+                        <input class="values" value="" placeholder="Pilih Sekolah" name="school"> 
+                    </div> 
                     <div class="kirim-container" style="margin-top: 0; width: 25%;">
                         <button type="submit" style="width: 100%">Kirim</button>
                     </div>
                 </div>
 
-                    <div style="display: flex; flex-direction: row; align-items: center; gap: 10px; margin-bottom: 15px;">
-                        <input class="input-box" type="text" name="allergy" placeholder="List alergi"
-                            style="width: 100%; margin-bottom: 0;">
-                    </div>
-
+                <div class="info-box"> 
+                    <span class="labels">List Alergi</span> 
+                    <input class="values" value="" name="allergy" placeholder="Contoh: Kacang, Nanas, Ikan"> 
+                </div> 
             </form>
         </div>
     </div>
