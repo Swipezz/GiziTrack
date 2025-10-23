@@ -21,19 +21,15 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        // Ambil user berdasarkan username
         $user = Account::where('username', $request->username)->first();
 
         if ($user) {
-            // Simpan session login
             $request->session()->put('user_id', $user->id);
             $request->session()->put('username', $user->username);
 
-            // Redirect ke halaman beranda
             return redirect()->route('beranda');
         }
 
-        // Jika gagal login
         return back()->with('error', 'Username atau password salah.');
     }
 
@@ -44,6 +40,11 @@ class AuthController extends Controller
         Cookie::queue(Cookie::forget('username'));
 
         return redirect()->route('login')->with('success', 'Anda telah logout.');
+    }
+
+    public function showRegister()
+    {
+        return view('Register');
     }
 
     public function register(Request $request)
