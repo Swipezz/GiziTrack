@@ -11,9 +11,9 @@ return new class extends Migration {
             $table->id();
             $table->string('username');
             $table->string('password');
-            $table->date('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->text('office');
             $table->unsignedInteger('employee')->nullable();
+            $table->timestamps();
         });
     }
 
