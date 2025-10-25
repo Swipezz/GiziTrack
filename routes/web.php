@@ -32,6 +32,7 @@ Route::middleware(['auth.check'])->group(function () {
 
     Route::get('/sekolah/{id}', [SchoolController::class, 'showDetailSekolah'])->name('detailSekolah');
     Route::post('/sekolah/{id}', [SchoolController::class, 'updateSekolah'])->name('updateSekolah');
+    Route::delete('/sekolah/{id}', [SchoolController::class, 'destroy'])->name('school.destroy');
 
     Route::get('/profil', [ProfileController::class, 'showProfil'])->name('profil');
 

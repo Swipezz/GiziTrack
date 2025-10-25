@@ -255,8 +255,14 @@
                 <div style="display: flex; align-items: left; gap: 10px; margin-bottom: 15px;">
                     <div class="info-box"> 
                         <span class="labels">Nama Sekolah</span> 
-                        <input class="values" value="" placeholder="Pilih Sekolah" name="school"> 
+                        <select class="values" name="school" required>
+                            <option value="">-- Pilih Sekolah --</option>
+                            @foreach ($schools as $school)
+                                <option value="{{ $school->name }}">{{ $school->name }}</option>
+                            @endforeach
+                        </select>
                     </div> 
+
                     <div class="kirim-container" style="margin-top: 0; width: 25%;">
                         <button type="submit" style="width: 100%">Kirim</button>
                     </div>
@@ -264,11 +270,10 @@
 
                 <div class="info-box"> 
                     <span class="labels">List Alergi</span> 
-                    <input class="values" value="" name="allergy" placeholder="Contoh: Kacang, Nanas, Ikan"> 
+                    <input class="values" name="allergy" placeholder="Contoh: Kacang, Nanas, Ikan" required> 
                 </div> 
             </form>
         </div>
     </div>
-
 </body>
 </html>

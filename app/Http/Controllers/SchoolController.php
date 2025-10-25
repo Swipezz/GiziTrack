@@ -32,7 +32,7 @@ class SchoolController extends Controller
 
     public function updateSekolah(Request $request, $id)
     {
-        $school = School::findOrFail($id);
+        $school = \App\Models\School::findOrFail($id);
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -43,23 +43,21 @@ class SchoolController extends Controller
             'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        // Jika ada logo baru
         if ($request->hasFile('logo')) {
-            // Hapus logo lama jika ada
-            if ($school->logo && file_exists(public_path($school->logo))) {
-                unlink(public_path($school->logo));
-            }
-
             $file = $request->file('logo');
             $filename = 'logo_' . time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('uploads/logo'), $filename);
 
             $validated['logo'] = 'uploads/logo/' . $filename;
+        } else {
+            $validated['logo'] = $school->logo;
         }
+
+        $validated['type_allergy'] = (string) $request->input('type_allergy');
 
         $school->update($validated);
 
-        return response()->json(['message' => 'Data berhasil diperbarui']);
+        return redirect('/sekolah')->with('success', 'Data sekolah berhasil diperbarui!');
     }
 
     public function create()
@@ -78,22 +76,33 @@ class SchoolController extends Controller
             'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        // Upload logo jika ada
         if ($request->hasFile('logo')) {
             $file = $request->file('logo');
             $filename = 'logo_' . time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('uploads/logo'), $filename);
             $validated['logo'] = 'uploads/logo/' . $filename;
         } else {
-            $validated['logo'] = 'uploads/logo/default.png';
+            $validated['logo'] = 'uploads/logo/default.jpg';
         }
 
         $validated['type_allergy'] = (string) $request->input('type_allergy');
 
-        // Simpan ke database
         \App\Models\School::create($validated);
 
-        // 🔁 Redirect kembali ke halaman /sekolah setelah berhasil
         return redirect('/sekolah')->with('success', 'Sekolah berhasil ditambahkan!');
+    }
+
+    public function destroy($id)
+    {
+        $school = \App\Models\School::findOrFail($id);
+
+        // Optional: hapus logo dari folder kalau bukan default
+        if ($school->logo && $school->logo !== 'uploads/logo/default.png' && file_exists(public_path($school->logo))) {
+            unlink(public_path($school->logo));
+        }
+
+        $school->delete();
+
+        return response()->json(['message' => 'Data sekolah berhasil dihapus.'], 200);
     }
 }

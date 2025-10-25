@@ -348,7 +348,10 @@
                                 <input class="value" name="type_allergy" value="{{ $school->type_allergy }}" disabled> 
                         </div> 
                     </div>
-                    <button type="button" class="edit-btn" id="editBtn">Edit Data</button> 
+                    <div>
+                        <button type="button" class="edit-btn" id="editBtn">Edit Data</button> 
+                        <button type="button" class="edit-btn" id="deleteBtn" style="background-color: #ff0000ff">Hapus Data</button> 
+                    </div>
                 </form>
             </div> 
         </div>
@@ -356,13 +359,13 @@
 
     <script>
         const editBtn = document.getElementById('editBtn');
+        const deleteBtn = document.getElementById('deleteBtn');
         const inputs = document.querySelectorAll('#schoolForm input:not([type=file])');
         const fileInput = document.getElementById('logoInput');
         const logoPreview = document.getElementById('schoolLogo');
         const form = document.getElementById('schoolForm');
         const schoolId = "{{ $school->id }}";
 
-        // Preview gambar baru
         fileInput.addEventListener('change', e => {
             const file = e.target.files[0];
             if (file) {
@@ -372,9 +375,9 @@
             }
         });
 
+        // Tombol Edit / Simpan
         editBtn.addEventListener('click', async () => {
             if (editBtn.textContent === 'Edit Data') {
-                // Aktifkan semua input
                 inputs.forEach(i => i.removeAttribute('disabled'));
                 fileInput.removeAttribute('disabled');
                 editBtn.textContent = 'Simpan Data';
@@ -392,12 +395,34 @@
 
                     if (response.ok) {
                         alert('Data berhasil disimpan!');
-                        // Kunci kembali input
                         inputs.forEach(i => i.setAttribute('disabled', true));
                         fileInput.setAttribute('disabled', true);
                         editBtn.textContent = 'Edit Data';
                     } else {
                         alert('Gagal menyimpan data.');
+                    }
+                } catch (e) {
+                    alert('Terjadi kesalahan: ' + e.message);
+                }
+            }
+        });
+
+        // 🗑️ Tombol Hapus Data
+        deleteBtn.addEventListener('click', async () => {
+            if (confirm('Apakah kamu yakin ingin menghapus data sekolah ini?')) {
+                try {
+                    const response = await fetch(`/sekolah/${schoolId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': form.querySelector('input[name="_token"]').value
+                        }
+                    });
+
+                    if (response.ok) {
+                        alert('Data sekolah berhasil dihapus!');
+                        window.location.href = '/sekolah'; // redirect ke daftar sekolah
+                    } else {
+                        alert('Gagal menghapus data sekolah.');
                     }
                 } catch (e) {
                     alert('Terjadi kesalahan: ' + e.message);

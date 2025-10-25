@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\School;
 use App\Models\SurveyFood;
 use App\Models\SurveyAllergy;
 
@@ -11,7 +12,8 @@ class SurveyController extends Controller
 {
     public function showSurveyMakanan()
     {
-        return view('SurveyMakanan');
+        $schools = School::select('name')->get();
+        return view('SurveyMakanan', compact('schools'));
     }
 
     public function surveyMakanan(Request $request)
@@ -44,7 +46,8 @@ class SurveyController extends Controller
 
         public function showSurveyAlergi()
     {
-        return view('SurveyAlergi');
+        $schools = School::select('name')->get();
+        return view('SurveyAlergi', compact('schools'));
     }
 
     public function surveyAlergi(Request $request)

@@ -317,7 +317,7 @@
 
                 <div class="logo-section">
                     <img id="previewLogo" 
-                            src="{{ asset('uploads/logo/default.png') }}" 
+                            src="{{ asset('uploads/logo/default.jpg') }}" 
                             alt="Logo Sekolah" 
                             class="school-logo">
 

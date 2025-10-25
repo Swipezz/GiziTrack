@@ -256,7 +256,12 @@
                 <div style="display: flex; align-items: left; gap: 10px; margin-bottom: 15px;">
                     <div class="info-box"> 
                         <span class="labels">Nama Sekolah</span> 
-                        <input class="values" value="" placeholder="Pilih Sekolah" name="school"> 
+                        <select class="values" name="school" required>
+                            <option value="">-- Pilih Sekolah --</option>
+                            @foreach ($schools as $school)
+                                <option value="{{ $school->name }}">{{ $school->name }}</option>
+                            @endforeach
+                        </select>   
                     </div> 
                     <div class="kirim-container" style="margin-top: 0; width: 25%;">
                         <button type="submit" style="width: 100%">Kirim</button>
