@@ -392,18 +392,34 @@
             <div class="content-header">
                 <h2>Data Sekolah</h2>
             </div>
+
             <a href="/sekolah/create" class="tambah-data-btn">Tambah Data</a>
 
-            <div class="school-grid">
-                @foreach ($school as $sch)
-                <a href="/sekolah/{{ $sch->id }}" class="school-card">
-                    <img src="{{ $sch->logo }}" class="school-logo-img" alt="Logo {{ $sch->name }}">
-                    <p class="school-name">{{ $sch->name }}</p>
-                </a>
-                @endforeach
-            </div>
+            <div class="school-grid" id="school-grid"></div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch(`/api/sekolah`)
+                .then(res => res.json())
+                .then(result => {
+                    const data = result.data;
+                    const container = document.getElementById('school-grid');
+                    container.innerHTML = "";
+
+                    data.forEach(school => {
+                        container.innerHTML += `
+                            <a href="/sekolah/${school.id}" class="school-card">
+                                <img src="${school.logo}" class="school-logo-img" alt="Logo ${school.name}">
+                                <p class="school-name">${school.name}</p>
+                            </a>
+                        `;
+                    });
+                })
+                .catch(err => console.error("Fetch Error:", err));
+        });
+    </script>
 </body>
 
 </html>

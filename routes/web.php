@@ -20,6 +20,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth.check'])->group(function () {
     Route::redirect('/', '/beranda');
 
+    Route::get('/api/sekolah', [SchoolController::class, 'apiShowSekolah'])->name('apiSekolah');
+    Route::get('/api/sekolah/{id}', [SchoolController::class, 'apiDetailSekolah'])->name('apiDetailSekolah');
+
     Route::get('/admin/register', [AuthController::class, 'showRegister'])->name('register');
     Route::post('/admin/register', [AuthController::class, 'register'])->name('register.post');
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use App\Models\School;
 
 class SchoolController extends Controller
@@ -14,6 +15,16 @@ class SchoolController extends Controller
         return view('Beranda', ['schools' => $schools]);
     }
 
+    public function apiShowSekolah()
+    {
+        $school = School::select('id', 'name', 'logo')->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $school
+        ]);
+    }
+
     public function showSekolah()
     {
         $school = School::select('id', 'name', 'logo')->get();
@@ -21,13 +32,21 @@ class SchoolController extends Controller
         return view('Sekolah', ['school' => $school]);
     }
 
-    public function showDetailSekolah($id)
+    public function apiDetailSekolah($id)
     {
         $school = School::select('id', 'logo', 'name', 'location', 'total_student', 'total_meal', 'type_allergy')
                         ->where('id', $id)
                         ->firstOrFail();
 
-        return view('DetailSekolah', ['school' => $school]);
+        return response()->json([
+            'success' => true,
+            'data' => $school
+        ]);
+    }
+
+    public function showDetailSekolah($id)
+    {
+        return view('DetailSekolah', ['id' => $id]);
     }
 
     public function updateSekolah(Request $request, $id)

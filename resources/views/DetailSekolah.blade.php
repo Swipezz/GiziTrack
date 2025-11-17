@@ -315,7 +315,7 @@
                 <form class="detail-container" id="schoolForm" enctype="multipart/form-data">
                     @csrf
                     <div class="logo-section">
-                        <img id="schoolLogo" src="{{ asset($school->logo) }}" alt="Logo Sekolah" class="school-logo"> 
+                        <img id="schoolLogo" src="" alt="Logo Sekolah" class="school-logo"> 
                         
                         <div class="upload-section" style="margin-top:10px;">
                             <label class="label">Ganti Logo</label>
@@ -326,26 +326,26 @@
                     <div class="info-grid"> 
                         <div class="info-box"> 
                             <span class="label">Nama Sekolah</span> 
-                            <input class="value" name="name" value="{{ $school->name }}" disabled> 
+                            <input class="value" id="name" name="name" value="" disabled> 
                         </div> 
                         
                         <div class="info-box info-wide"> 
                             <span class="label">Alamat Sekolah</span> 
-                            <input class="value" name="location" value="{{ $school->location }}" disabled> 
+                            <input class="value" id="location" name="location" value="" disabled> 
                         </div> 
                         
                         <div class="bottom-info">
                             <div class="info-box"> 
                                 <span class="label">Jumlah Siswa</span> 
-                                <input class="value" name="total_student" value="{{ $school->total_student }}" disabled> 
+                                <input class="value" id="total_student" name="total_student" value="" disabled> 
                             </div> 
                             <div class="info-box"> 
                                 <span class="label">Jumlah Porsi</span> 
-                                <input class="value" name="total_meal" value="{{ $school->total_meal }}" disabled> 
+                                <input class="value" id="total_meal" name="total_meal" value="" disabled> 
                             </div>
                             <div class="info-box info-wide"> 
                                 <span class="label">Alergi</span> 
-                                <input class="value" name="type_allergy" value="{{ $school->type_allergy }}" disabled> 
+                                <input class="value" id="type_allergy" name="type_allergy" value="" disabled> 
                         </div> 
                     </div>
                     <div>
@@ -358,13 +358,29 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch(`/api/sekolah/{{ $id }}`)
+                .then(res => res.json())
+                .then(result => {
+                    const data = result.data;
+
+                    document.getElementById('schoolLogo').src = data.logo;
+                    document.getElementById('name').value = data.name;
+                    document.getElementById('location').value = data.location;
+                    document.getElementById('total_student').value = data.total_student;
+                    document.getElementById('total_meal').value = data.total_meal;
+                    document.getElementById('type_allergy').value = data.type_allergy;
+                })
+                .catch(err => console.error(err));
+        });
+
         const editBtn = document.getElementById('editBtn');
         const deleteBtn = document.getElementById('deleteBtn');
         const inputs = document.querySelectorAll('#schoolForm input:not([type=file])');
         const fileInput = document.getElementById('logoInput');
         const logoPreview = document.getElementById('schoolLogo');
         const form = document.getElementById('schoolForm');
-        const schoolId = "{{ $school->id }}";
+        const schoolId = "{{$id}}";
 
         fileInput.addEventListener('change', e => {
             const file = e.target.files[0];
