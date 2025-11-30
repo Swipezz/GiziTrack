@@ -253,16 +253,18 @@
 
             <form class="label" action="{{ route('surveyMakanan.post') }}" method="POST" style="padding-right: 30%">
                 @csrf
+
                 <div style="display: flex; align-items: left; gap: 10px; margin-bottom: 15px;">
-                    <div class="info-box"> 
-                        <span class="labels">Nama Sekolah</span> 
-                        <select class="values" name="school" required>
+                    <div class="info-box">
+                        <label for="school" class="labels">Nama Sekolah</label>
+                        <select id="school" class="values" name="school" required>
                             <option value="">-- Pilih Sekolah --</option>
                             @foreach ($schools as $school)
                                 <option value="{{ $school->name }}">{{ $school->name }}</option>
                             @endforeach
-                        </select>   
-                    </div> 
+                        </select>
+                    </div>
+
                     <div class="kirim-container" style="margin-top: 0; width: 25%;">
                         <button type="submit" style="width: 100%">Kirim</button>
                     </div>
@@ -270,20 +272,27 @@
 
                 @for ($i = 0; $i < 6; $i++)
                 <div style="display: flex; flex-direction: row; align-items: center; gap: 10px; margin-bottom: 15px;">
-                    <div class="info-box"> 
-                        <span class="labels">Nama Makanan</span> 
-                        <input class="values" value="" name="food[]" oninput="this.value=this.value.replace(/[^a-zA-Z0-9\s.,-]/g,'')"> 
-                    </div> 
-                    <div class="info-box" style="width: 20%"> 
-                        <span class="labels">Jumlah</span> 
-                        <input class="values" value="" name="total[]" oninput="this.value=this.value.replace(/[^0-9]/g,'')"> 
-                    </div> 
+                    <div class="info-box">
+                        <label for="food_{{ $i }}" class="labels">Nama Makanan</label>
+                        <input id="food_{{ $i }}" 
+                            class="values"
+                            name="food[]" 
+                            oninput="this.value=this.value.replace(/[^a-zA-Z0-9\s.,-]/g,'')">
+                    </div>
+
+                    <div class="info-box" style="width: 20%">
+                        <label for="total_{{ $i }}" class="labels">Jumlah</label>
+                        <input id="total_{{ $i }}" 
+                            class="values"
+                            name="total[]" 
+                            oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+                    </div>
                 </div>
                 @endfor
 
             </form>
         </div>
     </div>
-
 </body>
+
 </html>

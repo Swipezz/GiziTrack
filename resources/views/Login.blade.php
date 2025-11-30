@@ -140,10 +140,10 @@
   </div>
 
   <div class="right-section">
-    <img src="{{ asset('images/login-images.png') }}" alt="Gambar 1" class="main-image">
+    <img src="{{ asset('images/login-images.webp') }}" alt="Gambar 1" class="main-image">
     <div class="small-images">
-      <img src="{{ asset('images/login-images2.jpg') }}" alt="Gambar 2">
-      <img src="{{ asset('images/login-images3.png') }}" alt="Gambar 3">
+      <img src="{{ asset('images/login-images2.webp') }}" alt="Gambar 2">
+      <img src="{{ asset('images/login-images3.webp') }}" alt="Gambar 3">
     </div>
   </div>
 </body>
