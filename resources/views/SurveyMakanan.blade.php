@@ -4,295 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey Makanan | GiziTrack</title>
-    <style>
-        .info-box { 
-            width: 100%;
-            display: flex; 
-            flex-direction: column;
-            border: 2px solid black; 
-            border-radius: 8px; 
-            padding: 10px 15px; 
-        }
-
-        .info-box .labels { 
-            font-size: 14px; 
-            color: #555; 
-            margin-bottom: 5px; 
-        }
-
-        .info-box .values { 
-            font-size: 16px; 
-            color: #000; 
-            font-weight: bold; 
-            border: none;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        .kirim-container button{
-            background-color: #d4bb41;
-            color: black;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 30px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            background-color: #fff;
-        }
-
-        .header {
-            background-color: #b3e0e5;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 25px;
-            height: 60px;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;        
-        }
-
-
-        .header h2 {
-            margin: 0;
-            font-size: 22px;
-            color: #000;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .date-box {
-            text-align: right;
-            line-height: 1.2;
-        }
-
-        .date-box .day {
-            display: block;
-        }
-
-        .date-box .date {
-            display: block;
-        }
-
-        .profile-btn {
-            background: none;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-        }
-
-        .profile-btn img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid black;
-            object-fit: cover;
-            transition: 0.2s;
-        }
-
-        .profile-btn img:hover {
-            transform: scale(1.1);
-        }
-
-        .main-container {
-            display: flex;
-            flex: 1;
-            height: calc(100vh - 60px);
-            margin-top: 60px;
-        }
-
-        .sidebar {
-            width: 220px;
-            background-color: #0a1f44;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            padding-top: 20px;
-            padding-bottom: 20px;
-            position: fixed;
-            top: 60px;
-            bottom: 0;
-            left: 0;
-        }
-
-        .menu {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .sidebar button:not(.logout-btn) {
-            width: 180px;
-            margin: 10px 0;
-            padding: 10px;
-            background-color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .sidebar button:not(.logout-btn):hover {
-            background-color: #dbeafe;
-        }
-
-        .logout-btn {
-            background-color: #ff0000;
-            color: black;
-            border: none;
-            border-radius: 10px;
-            width: 180px;
-            padding: 10px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .logout-btn:hover {
-            background-color: #9e0000;
-        }
-
-        .content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 40px 0;
-            width: 100%;
-            margin-left: 220px;
-        }
-    
-
-        .content h3 {
-            color: #0a1f44;
-            align-self: flex-start; 
-            margin-left: 10%; 
-            margin-bottom: 10px;
-            font-size: 37px;
-            gap: 20px;
-        }
-
-        .input-box {
-            width: 80%;
-            border: 2px solid black;
-            border-radius: 8px;
-            padding: 25px 25px;
-            font-size: 16px;
-            box-sizing: border-box;
-            outline: none;
-            margin-bottom: 25px;
-        }
-
-        .label {
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 5px;
-            display: block;
-            color: #000;
-            width: 80%;           
-            text-align: left;     
-            margin-left: auto;    
-            margin-right: auto;
-        }
-
-        .small-input {
-            width: 80%;
-            border: 2px solid black;
-            border-radius: 8px;
-            padding: 40px 12px;
-            font-size: 15px;
-            box-sizing: border-box;
-            outline: none;
-            margin-bottom: 20px;
-            text-align: left;
-            vertical-align: top;
-        }
-
-        .small-input::placeholder {
-            text-align: left;
-        }
-
-        .kirim-container {
-            width: 100%;
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 40px;
-        }
-
-
-    </style>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body class="flex min-h-screen flex-col bg-gray-50 font-sans">
     <x-header />
 
-    <div class="main-container">
+    <div class="mt-16 flex flex-1">
         <x-layout />
 
-        <div class="content">
-            <h3>Survey Makanan Tidak Dimakan</h3>
+        <div class="ml-64 flex w-full flex-col items-center py-10">
+            <h3 class="mb-8 ml-[10%] self-start text-4xl font-bold text-slate-900">Survey Makanan Tidak Dimakan</h3>
 
-            <form class="label" action="{{ route('surveyMakanan.post') }}" method="POST" style="padding-right: 30%">
+            <form action="{{ route('surveyMakanan.post') }}" method="POST" class="w-full max-w-3xl rounded-xl border border-gray-200 bg-white p-8 shadow-sm">
                 @csrf
 
-                <div style="display: flex; align-items: left; gap: 10px; margin-bottom: 15px;">
-                    <div class="info-box">
-                        <label for="school" class="labels">Nama Sekolah</label>
-                        <select id="school" class="values" name="school" required>
-                            <option value="">-- Pilih Sekolah --</option>
-                            @foreach ($schools as $school)
-                                <option value="{{ $school->name }}">{{ $school->name }}</option>
-                            @endforeach
-                        </select>
+                <div class="mb-8 flex items-end gap-4">
+                    <div class="flex w-full flex-col gap-2">
+                        <label for="school" class="text-sm font-bold text-gray-600">Nama Sekolah</label>
+                        <div class="relative">
+                            <select id="school" class="w-full appearance-none rounded-lg border border-gray-300 bg-white px-4 py-3 font-bold text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500" name="school" required>
+                                <option value="">-- Pilih Sekolah --</option>
+                                @foreach ($schools as $school)
+                                    <option value="{{ $school->name }}">{{ $school->name }}</option>
+                                @endforeach
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="kirim-container" style="margin-top: 0; width: 25%;">
-                        <button type="submit" style="width: 100%">Kirim</button>
-                    </div>
+                    <button type="submit" class="mb-[1px] h-[50px] w-32 rounded-lg bg-yellow-500 font-bold text-black transition-colors hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                        Kirim
+                    </button>
                 </div>
 
-                @for ($i = 0; $i < 6; $i++)
-                <div style="display: flex; flex-direction: row; align-items: center; gap: 10px; margin-bottom: 15px;">
-                    <div class="info-box">
-                        <label for="food_{{ $i }}" class="labels">Nama Makanan</label>
-                        <input id="food_{{ $i }}" 
-                            class="values"
-                            name="food[]" 
-                            oninput="this.value=this.value.replace(/[^a-zA-Z0-9\s.,-]/g,'')">
-                    </div>
+                <div class="space-y-4">
+                    @for ($i = 0; $i < 6; $i++)
+                    <div class="flex items-center gap-4">
+                        <div class="flex w-full flex-col gap-2">
+                            <label for="food_{{ $i }}" class="text-sm font-bold text-gray-600">Nama Makanan</label>
+                            <input id="food_{{ $i }}" 
+                                class="w-full rounded-lg border border-gray-300 px-4 py-3 font-bold text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                name="food[]" 
+                                oninput="this.value=this.value.replace(/[^a-zA-Z0-9\s.,-]/g,'')">
+                        </div>
 
-                    <div class="info-box" style="width: 20%">
-                        <label for="total_{{ $i }}" class="labels">Jumlah</label>
-                        <input id="total_{{ $i }}" 
-                            class="values"
-                            name="total[]" 
-                            oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+                        <div class="flex w-1/4 flex-col gap-2">
+                            <label for="total_{{ $i }}" class="text-sm font-bold text-gray-600">Jumlah</label>
+                            <input id="total_{{ $i }}" 
+                                class="w-full rounded-lg border border-gray-300 px-4 py-3 font-bold text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                name="total[]" 
+                                oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+                        </div>
                     </div>
+                    @endfor
                 </div>
-                @endfor
-
             </form>
         </div>
     </div>
 </body>
-
 </html>

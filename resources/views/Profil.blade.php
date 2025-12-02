@@ -4,211 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil | GiziTrack</title>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            background-color: #fff;
-        }
-
-        .header {
-            background-color: #b3e0e5;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 25px;
-            height: 60px;
-            width: 100%;
-        }
-
-        .header h2 {
-            margin: 0;
-            font-size: 22px;
-            color: #000;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .date-box {
-            text-align: right;
-            line-height: 1.2;
-        }
-
-        .date-box .day {
-            display: block;
-        }
-
-        .date-box .date {
-            display: block;
-        }
-
-        .profile-btn {
-            background: none;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-        }
-
-        .profile-btn img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid black;
-            object-fit: cover;
-            transition: 0.2s;
-        }
-
-        .profile-btn img:hover {
-            transform: scale(1.1);
-        }
-
-        .main-container {
-            display: flex;
-            flex: 1;
-            height: calc(100vh - 60px);
-        }
-
-
-        .sidebar {
-            width: 220px;
-            background-color: #0a1f44;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            padding-top: 20px;
-            padding-bottom: 20px;
-            position: fixed;
-            top: 60px;
-            bottom: 0;
-            left: 0;
-        }
-
-        .menu {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .sidebar button:not(.logout-btn) {
-            width: 180px;
-            margin: 10px 0;
-            padding: 10px;
-            background-color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .sidebar button:not(.logout-btn):hover {
-            background-color: #dbeafe;
-        }
-
-        .logout-btn {
-            background-color: #ff0000;
-            color: black;
-            border: none;
-            border-radius: 10px;
-            width: 180px;
-            padding: 10px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .logout-btn:hover {
-            background-color: #9e0000;
-        }
-
-        .content {
-            flex: 1;
-            background-color: white;
-            padding: 20px;
-            overflow-y: auto;
-            margin-left: 220px;
-        }
-
-        .content h3 {
-            color: #0a1f44;
-        }
-
-
-        .logo {
-            width: 200px;
-            height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            border-radius: 8px;
-        }
-
-        .logo img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-        
-        .alamat {
-            width: 200px;
-            text-align: center;
-            margin: 15px auto;
-            padding: 8px;
-        }
-
-        .box {
-            background-color: white;
-            border: 2px solid black;
-            padding: 20px;
-            margin: 15px auto;
-            width: 80%;
-            border-radius: 10px;
-        }
-
-        .box p {
-            margin: 8px 0;
-        }
-        
-    </style>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body class="flex min-h-screen flex-col bg-gray-50 font-sans">
     <x-header />
 
-    <div class="main-container">
+    <div class="mt-16 flex flex-1">
         <x-layout />
 
-<div class="content">
-    <div class="logo">
-        <img src="{{ asset('images/GiziTrackLogo.png') }}" alt="Logo GiziTrack">
-    </div>
+        <div class="ml-64 flex w-full flex-col items-center py-10">
+            <div class="mb-8 flex w-full max-w-2xl flex-col items-center gap-4">
+                <div class="flex h-40 w-full items-center justify-center rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                    <img src="{{ asset('images/GiziTrackLogo.png') }}" alt="Logo GiziTrack" class="h-full w-auto object-contain">
+                </div>
+                
+                <div class="w-full rounded-lg bg-blue-100 p-3 text-center text-lg font-bold text-blue-900">
+                    {{ $account->office }}
+                </div>
+            </div>
 
-    <div class="alamat">
-        <strong>{{ $account->office }}</strong>
-    </div>
-
-    @foreach ($account->employees as $employee)
-        <div class="box">
-            <p><strong>ID Karyawan:</strong> {{ $employee->id }}</p>
-            <p><strong>Nama Karyawan:</strong> {{ $employee->name }}</p>
-        </div>
-    @endforeach
-</div>
-
+            <div class="w-full max-w-2xl space-y-4">
+                @foreach ($account->employees as $employee)
+                    <div class="flex flex-col gap-2 rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+                        <div class="flex items-center justify-between border-b border-gray-100 pb-2">
+                            <span class="text-sm font-medium text-gray-500">ID Karyawan</span>
+                            <span class="font-bold text-gray-900">{{ $employee->id }}</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-2">
+                            <span class="text-sm font-medium text-gray-500">Nama Karyawan</span>
+                            <span class="text-lg font-bold text-gray-900">{{ $employee->name }}</span>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
 </body>

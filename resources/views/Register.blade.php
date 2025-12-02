@@ -4,149 +4,73 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register | GiziTrack</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      height: 100vh;
-    }
-
-    .left-section {
-      flex: 1;
-      background-color: #0a1f44;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .register-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      width: 100%;
-    }
-
-    .register-container h2 {
-      color: white;
-      font-size: 26px;
-      margin-bottom: 30px;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-    }
-
-    .form-input {
-      width: 60%;
-      margin: 10px 0;
-      background-color: white;
-      color: black;
-      border: none;
-      padding: 10px;
-      border-radius: 6px;
-      text-align: center;
-      font-size: 16px;
-      outline: none;
-    }
-
-    .form-input::placeholder {
-      color: black;
-    }
-
-    .btn-register {
-      background-color: #3B82F6;
-      color: white;
-      border: none;
-      padding: 10px 25px;
-      border-radius: 6px;
-      margin-top: 15px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 16px;
-      width: auto;
-    }
-
-    .btn-register:hover {
-      background-color: #2563EB;
-    }
-
-    .login-text {
-      margin-top: 20px;
-      font-size: 14px;
-      color: white;
-    }
-
-    .login-text a {
-      color: #3B82F6;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .login-text a:hover {
-      text-decoration: underline;
-    }
-
-    .right-section {
-      flex: 1;
-      background-color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      padding: 30px;
-      gap: 20px;
-    }
-
-    .right-section img {
-        border-radius: 10px;
-        object-fit: cover;
-    }
-
-    .main-image {
-        width: 90%;
-        height: 300px;
-    }
-
-    .small-images {
-        display: flex;
-        justify-content: space-between;
-        width: 55%;
-        gap: 15px;
-    }
-
-    .small-images img {
-        width: 55%; 
-        height: 200px;
-    }
-
-  </style>
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
-  <div class="left-section">
-    <div class="register-container">
-      <h2>Gizi Track</h2>
-      <form action="{{ route('register.post') }}" method="POST">
+<body class="flex min-h-screen w-full flex-col md:flex-row">
+  <!-- Left Section (Form) -->
+  <div class="flex flex-1 flex-col items-center justify-center bg-slate-900 p-8 text-center md:p-12">
+    <div class="w-full max-w-md">
+      <h2 class="mb-8 text-3xl font-bold text-white">Gizi Track</h2>
+      
+      <form action="{{ route('register.post') }}" method="POST" class="flex flex-col items-center gap-4">
         @csrf
-        <input type="text" class="form-input" name="username" placeholder="Username" required>
-        <input type="Password" class="form-input" name="password" placeholder="Password" required>
-        <input type="text" class="form-input" name="office" placeholder="Office" required>
-        <input type="text" class="form-input" name="employee" placeholder="Employee ID" required>
-        <button type="submit" class="btn-register">Register</button>
+        <div class="w-full">
+            <input type="text" 
+                   class="w-full rounded-lg border-none bg-white px-4 py-3 text-center text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                   name="username" 
+                   placeholder="Username" 
+                   required>
+        </div>
+        
+        <div class="w-full">
+            <input type="password" 
+                   class="w-full rounded-lg border-none bg-white px-4 py-3 text-center text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                   name="password" 
+                   placeholder="Password" 
+                   required>
+        </div>
+
+        <div class="w-full">
+            <input type="text" 
+                   class="w-full rounded-lg border-none bg-white px-4 py-3 text-center text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                   name="office" 
+                   placeholder="Office" 
+                   required>
+        </div>
+
+        <div class="w-full">
+            <input type="text" 
+                   class="w-full rounded-lg border-none bg-white px-4 py-3 text-center text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                   name="employee" 
+                   placeholder="Employee ID" 
+                   required>
+        </div>
+
+        <button type="submit" 
+                class="mt-4 w-auto rounded-lg bg-blue-500 px-8 py-2.5 text-base font-bold text-white transition-colors hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-slate-900">
+          Register
+        </button>
       </form>
+
+      <div class="mt-6 text-sm text-white">
+        Sudah punya akun? <a href="{{ route('login') }}" class="font-bold text-blue-400 hover:underline">Login disini</a>
+      </div>
     </div>
   </div>
 
-  <div class="right-section">
-    <img src="{{ asset('images/login-images.webp') }}" alt="Gambar 1" class="main-image">
-    <div class="small-images">
-      <img src="{{ asset('images/login-images2.webp') }}" alt="Gambar 2">
-      <img src="{{ asset('images/login-images3.webp') }}" alt="Gambar 3">
+  <!-- Right Section (Images) -->
+  <div class="flex flex-1 flex-col items-center justify-center bg-white p-8 md:p-12">
+    <div class="flex w-full max-w-lg flex-col gap-6">
+        <img src="{{ asset('images/login-images.webp') }}" alt="Healthy Food" class="h-64 w-full rounded-xl object-cover shadow-lg md:h-80">
+        
+        <div class="flex gap-4">
+            <div class="h-40 w-1/2 overflow-hidden rounded-xl shadow-md">
+                <img src="{{ asset('images/login-images2.webp') }}" alt="Healthy Lifestyle" class="h-full w-full object-cover transition-transform hover:scale-105">
+            </div>
+            <div class="h-40 w-1/2 overflow-hidden rounded-xl shadow-md">
+                <img src="{{ asset('images/login-images3.webp') }}" alt="Nutrition" class="h-full w-full object-cover transition-transform hover:scale-105">
+            </div>
+        </div>
     </div>
   </div>
 </body>
